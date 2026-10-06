@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Recursividad</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Recursividad</h1>
+<nav>
+  <a href="#def">Definición</a>
+  <a href="#proc">Procedimientos</a>
+  <a href="#car">Características</a>
+  <a href="#comp">Complejidad</a>
+  <a href="#fac">Factorial</a>
+  <a href="#fib">Fibonacci</a>
+  <a href="#han">Hanói</a>
+  <a href="#fra">Fractales</a>
+  <a href="#fuentes">Fuentes</a>
+</nav>
+
+<h2 id="def">1. Definición</h2>
+<p>La recursividad es una forma de resolver un problema usando soluciones de versiones más pequeñas del mismo problema [1]. Una función recursiva tiene un <b>caso base</b> (respuesta directa) y un <b>caso recursivo</b> (se llama a sí misma) [1][7].</p>
+<pre>factorial(n):
+  si n == 0: devolver 1          // caso base
+  devolver n * factorial(n-1)    // caso recursivo</pre>
+
+<h2 id="proc">2. Procedimientos recursivos y aplicaciones</h2>
+<p>Un procedimiento recursivo se llama a sí mismo hasta llegar al caso base y después regresa con los resultados [6]. Se usa en:</p>
+<ul>
+  <li>Cálculos matemáticos (factorial, Fibonacci).</li>
+  <li>Listas y árboles [6].</li>
+  <li>Búsqueda binaria y mergesort [5].</li>
+  <li>Torres de Hanói y fractales.</li>
+</ul>
+
+<h2 id="car">3. Características</h2>
+<ul>
+  <li><b>Caso base:</b> es la condición para parar. Sin él la recursión es infinita [7].</li>
+  <li><b>Caso recursivo:</b> la función se llama con un problema más pequeño.</li>
+  <li><b>Avance:</b> cada llamada debe acercarse al caso base [7].</li>
+  <li><b>Pila de llamadas:</b> cada llamada pendiente usa memoria [3].</li>
+</ul>
+
+<h2 id="comp">4. Complejidad computacional</h2>
+<p>Para medir un algoritmo recursivo se escribe una relación de recurrencia T(n) y se resuelve [5]. Por ejemplo, Hanói cumple T(n) = 2T(n-1) + 1, que da 2<sup>n</sup> - 1 movimientos [2][5].</p>
+<table>
+  <tr><th>Algoritmo</th><th>Recurrencia</th><th>Tiempo</th></tr>
+  <tr><td>Factorial</td><td>T(n) = T(n-1) + 1</td><td>O(n)</td></tr>
+  <tr><td>Fibonacci (simple)</td><td>T(n) = T(n-1) + T(n-2)</td><td>O(2<sup>n</sup>) [8]</td></tr>
+  <tr><td>Hanói</td><td>T(n) = 2T(n-1) + 1</td><td>O(2<sup>n</sup>) [3]</td></tr>
+  <tr><td>Búsqueda binaria</td><td>T(n) = T(n/2) + 1</td><td>O(log n) [5]</td></tr>
+</table>
+
+<h2 id="fac">5. Factorial</h2>
+<p>n! = n × (n-1)!, y 0! = 1.</p>
+<div class="caja">
+  n = <input type="number" id="facN" value="5" min="0" max="12">
+  <button onclick="factorial_demo()">Calcular</button>
+  <div id="facOut"></div>
+</div>
+
+<h2 id="fib">6. Fibonacci</h2>
+<p>F(n) = F(n-1) + F(n-2), con F(0) = 0 y F(1) = 1. El árbol muestra que se repiten muchos cálculos.</p>
+<div class="caja">
+  n = <select id="fibN" onchange="fib_demo()">
+    <option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option>
+  </select>
+  <p id="fibOut"></p>
+  <canvas id="fibC" width="880" height="300"></canvas>
+</div>
+
+<h2 id="han">7. Torres de Hanói</h2>
+<p>Hay que mover todos los discos de la torre A a la C, uno a la vez y sin poner un disco grande sobre uno pequeño [2].</p>
+<div class="caja">
+  Discos: <select id="hanN" onchange="hanoi_reiniciar()">
+    <option>2</option><option selected>3</option><option>4</option><option>5</option>
+  </select>
+  <button onclick="hanoi_paso()">Siguiente movimiento</button>
+  <button onclick="hanoi_reiniciar()">Reiniciar</button>
+  <p id="hanOut"></p>
+  <canvas id="hanC" width="880" height="250"></canvas>
+</div>
+
+<h2 id="fra">8. Fractales</h2>
+<p>Un fractal se dibuja repitiendo la misma figura más pequeña. La profundidad es el número de veces que se repite.</p>
+<div class="caja">
+  Figura: <select id="fraT" onchange="fractal_demo()">
+    <option value="sier">Triángulo de Sierpinski</option>
+    <option value="arbol">Árbol</option>
+  </select>
+  Profundidad: <select id="fraD" onchange="fractal_demo()">
+    <option>0</option><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option>
+  </select>
+  <br><br>
+  <canvas id="fraC" width="880" height="450"></canvas>
+</div>
+
+<h2 id="fuentes">Fuentes</h2>
+<ol class="fuentes">
+  <li>[1] Wikipedia, Recursion (computer science): en.wikipedia.org/wiki/Recursion_(computer_science)</li>
+  <li>[2] GeeksforGeeks, Time Complexity Analysis Tower of Hanoi: geeksforgeeks.org/?p=182882</li>
+  <li>[3] HackerEarth, Tower of Hanoi explained: hackerearth.com/blog/tower-hanoi-recursion-game-algorithm-explained</li>
+  <li>[4] Texas A&amp;M CSCE 222, solución tarea 4: people.engr.tamu.edu/j-chen3/courses/222/2024/assignment/solution4.pdf</li>
+  <li>[5] UC Riverside CS141, recurrencias: cs.ucr.edu/~neal/2004/cs260-static-mirror/</li>
+  <li>[6] OpenCourser, Recursion: opencourser.com/topic/xalj1m/recursion</li>
+  <li>[7] TutorChase, base y recursive cases: tutorchase.com/answers/ib/computer-science/what-are-the-base-and-recursive-cases-in-recursion</li>
+  <li>[8] Pythorn docs, recursion: pythorn.readthedocs.io/en/latest/_modules/pythorn/data_structures/recursion.html</li>
+</ol>
+
+<script>
+// ---------- FACTORIAL ----------
+function factorial(n, nivel){
+  var sangria = "&nbsp;&nbsp;&nbsp;&nbsp;".repeat(nivel);
+  document.getElementById("facOut").innerHTML += "<div>" + sangria + "factorial(" + n + ")</div>";
+  var resultado;
+  if(n == 0){
+    resultado = 1;                                   // caso base
+  } else {
+    resultado = n * factorial(n - 1, nivel + 1);     // caso recursivo
+  }
+  document.getElementById("facOut").innerHTML += "<div>" + sangria + "= " + resultado + "</div>";
+  return resultado;
+}
+function factorial_demo(){
+  document.getElementById("facOut").innerHTML = "";
+  var n = Number(document.getElementById("facN").value);
+  factorial(n, 0);
+}
+factorial_demo();
+
+// ---------- FIBONACCI ----------
+var llamadas = 0;
+function fib(n){
+  llamadas++;
+  if(n < 2) return n;                 // caso base
+  return fib(n-1) + fib(n-2);         // caso recursivo
+}
+// dibuja el árbol de llamadas
+function dibujarArbol(g, n, x, y, ancho){
+  if(n >= 2){
+    var hijos = [[n-1, x-ancho], [n-2, x+ancho]];
+    for(var i=0; i<2; i++){
+      g.beginPath(); g.moveTo(x,y); g.lineTo(hijos[i][1], y+50); g.strokeStyle="#888"; g.stroke();
+      dibujarArbol(g, hijos[i][0], hijos[i][1], y+50, ancho/2);
+    }
+  }
+  g.beginPath(); g.arc(x,y,13,0,7); g.fillStyle="#0f766e"; g.fill();
+  g.fillStyle="white"; g.textAlign="center"; g.fillText(n, x, y+4);
+}
+function fib_demo(){
+  var n = Number(document.getElementById("fibN").value);
+  var c = document.getElementById("fibC"), g = c.getContext("2d");
+  g.clearRect(0,0,c.width,c.height);
+  dibujarArbol(g, n, 440, 25, 200);
+  llamadas = 0;
+  var r = fib(n);
+  document.getElementById("fibOut").innerHTML = "F(" + n + ") = " + r + " &nbsp; | &nbsp; llamadas: " + llamadas;
+}
+fib_demo();
+
+// ---------- HANOI ----------
+var torres, movimientos, paso;
+function calcularMovs(n, origen, destino, aux){
+  if(n == 0) return;                              // caso base
+  calcularMovs(n-1, origen, aux, destino);        // mover n-1 a la torre auxiliar
+  movimientos.push([origen, destino]);            // mover el disco grande
+  calcularMovs(n-1, aux, destino, origen);        // mover n-1 al destino
+}
+function hanoi_reiniciar(){
+  var n = Number(document.getElementById("hanN").value);
+  torres = [[],[],[]];
+  for(var i=n; i>=1; i--) torres[0].push(i);
+  movimientos = []; paso = 0;
+  calcularMovs(n, 0, 2, 1);
+  hanoi_dibujar();
+}
+function hanoi_paso(){
+  if(paso >= movimientos.length) return;
+  var m = movimientos[paso]; paso++;
+  torres[m[1]].push(torres[m[0]].pop());
+  hanoi_dibujar();
+}
+function hanoi_dibujar(){
+  var c = document.getElementById("hanC"), g = c.getContext("2d");
+  g.clearRect(0,0,c.width,c.height);
+  for(var t=0; t<3; t++){
+    var x = 150 + t*290;
+    g.fillStyle = "#888"; g.fillRect(x-4, 40, 8, 190);
+    g.fillText("ABC"[t], x, 245);
+    for(var d=0; d<torres[t].length; d++){
+      var ancho = 30 + torres[t][d]*25;
+      g.fillStyle = "hsl(" + torres[t][d]*50 + ",70%,55%)";
+      g.fillRect(x-ancho/2, 205 - d*25, ancho, 22);
+    }
+  }
+  document.getElementById("hanOut").innerHTML = "Movimiento " + paso + " de " + movimientos.length;
+}
+hanoi_reiniciar();
+
+// ---------- FRACTALES ----------
+function sierpinski(g, x, y, lado, n){
+  if(n == 0){                                      // caso base: dibujar un triángulo
+    g.beginPath();
+    g.moveTo(x, y); g.lineTo(x+lado, y); g.lineTo(x+lado/2, y-lado*0.866);
+    g.fill();
+  } else {                                         // caso recursivo: 3 triángulos más pequeños
+    sierpinski(g, x, y, lado/2, n-1);
+    sierpinski(g, x+lado/2, y, lado/2, n-1);
+    sierpinski(g, x+lado/4, y-lado*0.433, lado/2, n-1);
+  }
+}
+function rama(g, x, y, largo, angulo, n){
+  var x2 = x + Math.cos(angulo)*largo;
+  var y2 = y - Math.sin(angulo)*largo;
+  g.beginPath(); g.moveTo(x,y); g.lineTo(x2,y2); g.stroke();
+  if(n > 0){                                       // dos ramas más cortas
+    rama(g, x2, y2, largo*0.7, angulo+0.5, n-1);
+    rama(g, x2, y2, largo*0.7, angulo-0.5, n-1);
+  }
+}
+function fractal_demo(){
+  var c = document.getElementById("fraC"), g = c.getContext("2d");
+  var n = Number(document.getElementById("fraD").value);
+  g.clearRect(0,0,c.width,c.height);
+  g.fillStyle = "#5eead4"; g.strokeStyle = "#4ade80";
+  if(document.getElementById("fraT").value == "sier"){
+    sierpinski(g, 190, 430, 500, n);
+  } else {
+    rama(g, 440, 440, 100, Math.PI/2, n);
+  }
+}
+fractal_demo();
+</script>
+</body>
+</html>
